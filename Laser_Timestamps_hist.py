@@ -34,12 +34,13 @@ for t in timestamps7:
 
 #shift times to line up and remove 40000 clock cycles after pulse (laser prpbably not there)
 shifted_ts = []
-print(len(timestamps7))
+#print(len(timestamps7))
 for i in range(0,(len(timestamps7)-1)):
     mask1 = timestamps0 > (timestamps7[i]+300000) #500,000 CS between pulses
     timestampsnew = timestamps0[mask1]
     mask2 = timestampsnew < timestamps7[i+1]
     timestampsnew1 = timestampsnew[mask2]-delta_t7[i]
+    #print(timestamps7[i])
     #print( 'delta_t7 = ' + str(delta_t7[i]))
     #print(len(timestampsnew1))
     shifted_ts = np.append(shifted_ts, timestampsnew1)
@@ -52,6 +53,9 @@ plt.xlabel('Clock Cycles 100ns (10MHx)')
 plt.ylabel('Counts')
 plt.legend()
 current_values = plt.gca().get_xticks()
-plt.gca().set_xticklabels(['{:.0f}'.format(y) for y in current_values])
+#plt.gca().set_xticklabels(['{:.0f}'.format(y) for y in current_values])
 plt.show()
+
+max_timestamps_2_trig = max_bin_time - bins[-1]
+print('time delay is ' + str(max_timestamps_2_trig))
 
